@@ -1,9 +1,8 @@
 package com.project.maven.first;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -17,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 
 import org.apache.commons.io.IOUtils;
@@ -31,10 +29,17 @@ public class MainWindow extends JFrame {
 	private JMenuItem newGameMenuItem, aboutMenuItem, exitMenuItem;
 		
 	public MainWindow() {
+		setTitle("Wonrz");
+		setResizable(false);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setIconImage(Utils.createImageIcon("/snake_icon_16x16.png").getImage());
+		
+		
 		initApplication();
 	}
 	
 	private void initApplication() {
+		setLayout(new GridLayout(1, 1, 0, 0));
 		
 		menuBar = new JMenuBar();
 		
@@ -60,17 +65,14 @@ public class MainWindow extends JFrame {
 		menuBar.add(helpMenu);
 		
 		MainPanel p = new MainPanel();
-		this.add(p);
-		
-		this.setJMenuBar(menuBar);
-		
-		this.setTitle("First project main window");
-		this.setSize(800,600);
-		this.setResizable(false);
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setIconImage(Utils.createImageIcon("/snake_icon_16x16.png").getImage());
+		add(p);
+		pack();
+		setJMenuBar(menuBar);
+						
 		UIManager.put("swing.boldMetal", Boolean.FALSE);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
 	}	
 		
 	public class ExitAction extends AbstractAction {
