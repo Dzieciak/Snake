@@ -64,10 +64,12 @@ public class MainWindow extends JFrame {
 		menuBar.add(fileMenu);
 		menuBar.add(helpMenu);
 		
+		setJMenuBar(menuBar);
+		
 		MainPanel p = new MainPanel();
 		add(p);
 		pack();
-		setJMenuBar(menuBar);
+		
 						
 		UIManager.put("swing.boldMetal", Boolean.FALSE);
 		setLocationRelativeTo(null);

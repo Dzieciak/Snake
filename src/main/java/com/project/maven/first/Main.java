@@ -14,8 +14,7 @@ public class Main
     	SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                MainWindow mw = new MainWindow();
-            	//mw.setVisible(true);
+                MainWindow mw = new MainWindow();            	
             }
         });
     }
