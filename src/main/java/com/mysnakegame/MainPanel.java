@@ -105,7 +105,7 @@ public class MainPanel extends JPanel implements Runnable {
 
         snake.removeLast();
 
-        if (snake.getHeadPosition().x >= WIDTH || snake.getHeadPosition().x <= 0 || snake.getHeadPosition().y >= HEIGHT
+        if (snake.getHeadPosition().x >= WIDTH || snake.getHeadPosition().x < 0 || snake.getHeadPosition().y >= HEIGHT
                 || snake.getHeadPosition().y < 0) {
             running = false;
         } else {
