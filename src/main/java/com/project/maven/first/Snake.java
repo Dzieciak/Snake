@@ -11,13 +11,13 @@ public class Snake {
 		UP, RIGHT, DOWN, LEFT
 	}
 	
-	private final static int initialLength = 5;
-	private ArrayList<Segment> segments;		
+	private final static int initialLength = 15;
+	private ArrayList<SnakeSegment> segments;		
 	private MovementDirection md;
 	
 	public Snake(int initialX, int initialY) {
 		md = MovementDirection.RIGHT;
-		segments = new ArrayList<Segment>();				
+		segments = new ArrayList<SnakeSegment>();				
 		for(int i = 0; i < initialLength; i++) {
 			if(getSize() == 0) {
 				addSegment(initialX, initialY);
@@ -31,22 +31,22 @@ public class Snake {
 		return segments.size();
 	}
 	
-	public ArrayList<Segment> getSegments() {
+	public ArrayList<SnakeSegment> getSegments() {
 		return segments;
 	}
 	
 	public void addSegment(int x, int y) {
 		if(getSize() == 0){
-			segments.add(new Segment(x, y, Color.BLUE));
+			segments.add(new SnakeSegment(x, y, Color.BLUE));
 		} else if(segments.get(getSize() - 1).getColor().equals(Color.BLUE)){
-			segments.add(new Segment(x, y, Color.CYAN));
+			segments.add(new SnakeSegment(x, y, Color.CYAN));
 		} else {
-			segments.add(new Segment(x, y, Color.BLUE));
+			segments.add(new SnakeSegment(x, y, Color.BLUE));
 		}		
 	}
 	
 	public Point getHeadPosition() {
-		return new Point(segments.get(getSize() - 1).getX() + Segment.size, segments.get(getSize() - 1).getY());
+		return new Point(segments.get(getSize() - 1).getX() + SnakeSegment.size, segments.get(getSize() - 1).getY());
 	}
 	
 	public void removeLast() {

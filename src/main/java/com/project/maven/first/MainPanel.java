@@ -18,7 +18,7 @@ public class MainPanel extends JPanel implements Runnable {
 		
 	private final static int WIDTH = 800;
 	private final static int HEIGHT = 800;
-	private Snake s;
+	private Snake snake;
 	private Thread thread;
 	private boolean running = false;
 	
@@ -28,7 +28,7 @@ public class MainPanel extends JPanel implements Runnable {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));		
 		setBackground(Color.WHITE);
 		
-		this.s = new Snake(WIDTH / 2, HEIGHT / 2);
+		this.snake = new Snake(WIDTH / 2, HEIGHT / 2);
 		
 		start();
 		
@@ -45,8 +45,8 @@ public class MainPanel extends JPanel implements Runnable {
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		for(int i = 0; i < s.getSize(); i++) {
-			s.getSegments().get(i).draw(g);
+		for(int i = 0; i < snake.getSize(); i++) {
+			snake.getSegments().get(i).draw(g);
 			
 		}		
 	}
@@ -61,28 +61,23 @@ public class MainPanel extends JPanel implements Runnable {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+						
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+						
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+						
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-	
+						
+		}	
 	
 	}
 	
@@ -93,16 +88,27 @@ public class MainPanel extends JPanel implements Runnable {
 	}
 	
 	public void tick() {
+			
+		switch(snake.getMovementDirection()){
+			case UP:
+				snake.addSegment(snake.getHeadPosition().x - SnakeSegment.size, snake.getHeadPosition().y - SnakeSegment.size);
+				break;
+			case RIGHT:
+				snake.addSegment(snake.getHeadPosition().x, snake.getHeadPosition().y);
+				break;
+			case DOWN:
+				snake.addSegment(snake.getHeadPosition().x - SnakeSegment.size, snake.getHeadPosition().y + SnakeSegment.size);
+				break;
+			case LEFT:
+				snake.addSegment(snake.getHeadPosition().x - 2 * SnakeSegment.size, snake.getHeadPosition().y);
+				break;			
+		}		
 		
-		//p = MouseInfo.getPointerInfo().getLocation();
-		//System.out.println(p.x + " , " + p.y);
-		
-		s.addSegment(s.getHeadPosition().x, s.getHeadPosition().y);
-		s.removeLast();
+		snake.removeLast();
 		
 		
-		if (s.getHeadPosition().x >= WIDTH + Segment.size || s.getHeadPosition().y >= HEIGHT + Segment.size) {
-			s.moveToPoint(WIDTH / 2, HEIGHT / 2);
+		if (snake.getHeadPosition().x >= WIDTH + SnakeSegment.size || snake.getHeadPosition().x < 0 || snake.getHeadPosition().y >= HEIGHT + SnakeSegment.size || snake.getHeadPosition().y < 0) {
+			snake.moveToPoint(WIDTH / 2, HEIGHT / 2);
 		}
 	}
 	
@@ -116,10 +122,8 @@ public class MainPanel extends JPanel implements Runnable {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
-			
-		}
-		
+			}			
+		}		
 	}
 	
 	private class KeyHandler implements KeyListener {
@@ -129,26 +133,24 @@ public class MainPanel extends JPanel implements Runnable {
 			
 			int key = e.getKeyCode();
 			
-			if(key == KeyEvent.VK_UP && !(s.getMovementDirection().equals(Snake.MovementDirection.DOWN))) {
-				System.out.println("UP");
-				s.setMovementDirection(MovementDirection.UP);
-			} else if(key == KeyEvent.VK_RIGHT && !(s.getMovementDirection().equals(Snake.MovementDirection.LEFT))) {
-				System.out.println("RIGHT");
-				s.setMovementDirection(MovementDirection.RIGHT);
-			} else if(key == KeyEvent.VK_DOWN && !(s.getMovementDirection().equals(Snake.MovementDirection.UP))) {
-				System.out.println("DOWN");
-				s.setMovementDirection(MovementDirection.DOWN);
-			} else if(key == KeyEvent.VK_LEFT && !(s.getMovementDirection().equals(Snake.MovementDirection.RIGHT))) {
-				System.out.println("LEFT");
-				s.setMovementDirection(MovementDirection.LEFT);
+			if(key == KeyEvent.VK_UP && !(snake.getMovementDirection().equals(Snake.MovementDirection.DOWN))) {				
+				snake.setMovementDirection(MovementDirection.UP);
+			} else if(key == KeyEvent.VK_RIGHT && !(snake.getMovementDirection().equals(Snake.MovementDirection.LEFT))) {				
+				snake.setMovementDirection(MovementDirection.RIGHT);
+			} else if(key == KeyEvent.VK_DOWN && !(snake.getMovementDirection().equals(Snake.MovementDirection.UP))) {				
+				snake.setMovementDirection(MovementDirection.DOWN);
+			} else if(key == KeyEvent.VK_LEFT && !(snake.getMovementDirection().equals(Snake.MovementDirection.RIGHT))) {				
+				snake.setMovementDirection(MovementDirection.LEFT);
 			}
 			
 			/*if(key == KeyEvent.VK_P && running == true) {
 				System.out.println("PAUSE");
-				running = false;
+				running = false;				
+								
 			} else if(key == KeyEvent.VK_P && running == false) {
 				System.out.println("RUN");
 				running = true;
+				
 			}*/
 			
 		}

@@ -3,13 +3,13 @@ package com.project.maven.first;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Segment {	
+public class SnakeSegment {	
 	
 	public final static int size = 10;
 	private int x, y;
 	private Color color;
 	
-	public Segment(int x, int y, Color color) {
+	public SnakeSegment(int x, int y, Color color) {
 		this.x = x;
 		this.y = y;
 		this.color = color;
