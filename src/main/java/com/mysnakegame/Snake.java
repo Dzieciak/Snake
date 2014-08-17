@@ -65,13 +65,14 @@ public class Snake {
         this.md = md;
     }
 
-    public void moveToPoint(int x, int y) {
+    public void reset() {
         segments.clear();
+        md = MovementDirection.RIGHT;
         for (int i = 0; i < initialLength; i++) {
             if (getSize() == 0) {
-                addSegment(x, y);
+                addSegment(MainPanel.WIDTH / 2, MainPanel.HEIGHT / 2);
             } else {
-                addSegment(getHeadPosition().x, getHeadPosition().y);
+                addSegment(getHeadPosition().x + SnakeSegment.size, getHeadPosition().y);
             }
         }
     }

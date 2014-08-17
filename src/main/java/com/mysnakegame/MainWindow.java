@@ -23,7 +23,7 @@ import org.apache.commons.io.IOUtils;
 import com.mysnakegame.utils.Utils;
 
 public class MainWindow extends JFrame {
-    
+
     private static final long serialVersionUID = 8911063216016530341L;
     private JMenuBar menuBar;
     private JMenu fileMenu, helpMenu;
@@ -49,7 +49,8 @@ public class MainWindow extends JFrame {
         helpMenu = new JMenu("Help");
         helpMenu.setMnemonic(KeyEvent.VK_H);
 
-        NewGameAction newGameAction = new NewGameAction("New game", Utils.createImageIcon("/play_icon_16x16.png"), "Start new game", KeyEvent.VK_N);
+        NewGameAction newGameAction = new NewGameAction("New game", Utils.createImageIcon("/play_icon_16x16.png"), "Start new game",
+                KeyEvent.VK_N);
         newGameMenuItem = new JMenuItem(newGameAction);
 
         ExitAction exitAction = new ExitAction("Exit", Utils.createImageIcon("/exit_icon_16x16.png"), "Exit the application", KeyEvent.VK_E);
@@ -79,7 +80,7 @@ public class MainWindow extends JFrame {
     }
 
     public class ExitAction extends AbstractAction {
-        
+
         private static final long serialVersionUID = 3039059743053449508L;
 
         public ExitAction(String name, ImageIcon icon, String shortDescription, Integer mnemonic) {
@@ -95,7 +96,7 @@ public class MainWindow extends JFrame {
     }
 
     public class ShowDialogAction extends AbstractAction {
-        
+
         private static final long serialVersionUID = -7666919232280854843L;
         private JFrame frame;
 
@@ -137,20 +138,17 @@ public class MainWindow extends JFrame {
     public class NewGameAction extends AbstractAction {
 
         private static final long serialVersionUID = 4592465389199267807L;
-                
+
         public NewGameAction(String name, ImageIcon icon, String shortDescription, Integer mnemonic) {
             super(name, icon);
             putValue(SHORT_DESCRIPTION, shortDescription);
-            putValue(MNEMONIC_KEY, mnemonic);            
+            putValue(MNEMONIC_KEY, mnemonic);
         }
-        
+
         @Override
         public void actionPerformed(ActionEvent ae) {
             System.out.println("New game started...");
-            //MainPanel.startNewGame();
-            //panel.snake = new Snake(WIDTH / 2, HEIGHT / 2);
-            //panel.start();
         }
-        
+
     }
 }
