@@ -47,7 +47,6 @@ public class MainPanel extends JPanel implements Runnable {
         super.paintComponent(g);
         for (int i = 0; i < snake.getSize(); i++) {
             snake.getSegments().get(i).draw(g);
-
         }
     }
 
@@ -91,24 +90,30 @@ public class MainPanel extends JPanel implements Runnable {
 
         switch (snake.getMovementDirection()) {
             case UP:
-                snake.addSegment(snake.getHeadPosition().x - SnakeSegment.size, snake.getHeadPosition().y - SnakeSegment.size);
+                snake.addSegment(snake.getHeadPosition().x, snake.getHeadPosition().y - SnakeSegment.size);
                 break;
             case RIGHT:
-                snake.addSegment(snake.getHeadPosition().x, snake.getHeadPosition().y);
+                snake.addSegment(snake.getHeadPosition().x + SnakeSegment.size, snake.getHeadPosition().y);
                 break;
             case DOWN:
-                snake.addSegment(snake.getHeadPosition().x - SnakeSegment.size, snake.getHeadPosition().y + SnakeSegment.size);
+                snake.addSegment(snake.getHeadPosition().x, snake.getHeadPosition().y + SnakeSegment.size);
                 break;
             case LEFT:
-                snake.addSegment(snake.getHeadPosition().x - 2 * SnakeSegment.size, snake.getHeadPosition().y);
+                snake.addSegment(snake.getHeadPosition().x - SnakeSegment.size, snake.getHeadPosition().y);
                 break;
         }
 
         snake.removeLast();
 
-        if (snake.getHeadPosition().x >= WIDTH + SnakeSegment.size || snake.getHeadPosition().x < 0
-                || snake.getHeadPosition().y >= HEIGHT + SnakeSegment.size || snake.getHeadPosition().y < 0) {
-            snake.moveToPoint(WIDTH / 2, HEIGHT / 2);
+        if (snake.getHeadPosition().x >= WIDTH || snake.getHeadPosition().x <= 0 || snake.getHeadPosition().y >= HEIGHT
+                || snake.getHeadPosition().y < 0) {
+            running = false;
+        } else {
+            for (int i = 0; i < snake.getSize() - 1; i++) {
+                if (snake.getHeadPosition().x == snake.getSegment(i).getX() && snake.getHeadPosition().y == snake.getSegment(i).getY()) {
+                    running = false;
+                }
+            }
         }
     }
 
@@ -141,16 +146,6 @@ public class MainPanel extends JPanel implements Runnable {
             } else if (key == KeyEvent.VK_LEFT && !(snake.getMovementDirection().equals(Snake.MovementDirection.RIGHT))) {
                 snake.setMovementDirection(MovementDirection.LEFT);
             }
-
-            /*
-             * if(key == KeyEvent.VK_P && running == true) {
-             * System.out.println("PAUSE"); running = false;
-             * 
-             * } else if(key == KeyEvent.VK_P && running == false) {
-             * System.out.println("RUN"); running = true;
-             * 
-             * }
-             */
 
         }
 
