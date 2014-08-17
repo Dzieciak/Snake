@@ -1,4 +1,4 @@
-package com.project.maven.first;
+package com.mysnakegame;
 
 import java.awt.Color;
 import java.awt.Point;

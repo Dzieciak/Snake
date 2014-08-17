@@ -1,4 +1,4 @@
-package com.project.maven.first;
+package com.mysnakegame;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -20,7 +20,7 @@ import javax.swing.UIManager;
 
 import org.apache.commons.io.IOUtils;
 
-import com.project.maven.first.utils.Utils;
+import com.mysnakegame.utils.Utils;
 
 public class MainWindow extends JFrame {
 

@@ -1,4 +1,4 @@
-package com.project.maven.first;
+package com.mysnakegame;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,7 +12,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import com.project.maven.first.Snake.MovementDirection;
+import com.mysnakegame.Snake.MovementDirection;
 
 public class MainPanel extends JPanel implements Runnable {
 

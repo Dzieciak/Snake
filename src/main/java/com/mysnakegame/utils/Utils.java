@@ -1,4 +1,4 @@
-package com.project.maven.first.utils;
+package com.mysnakegame.utils;
 
 import java.net.URL;
 
