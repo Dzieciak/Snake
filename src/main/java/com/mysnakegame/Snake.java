@@ -11,7 +11,7 @@ public class Snake {
     }
 
     private final static int initialLength = 25;
-    private ArrayList<SnakeSegment> segments;    
+    private ArrayList<SnakeSegment> segments;
     private MovementDirection md;
 
     public Snake(int initialX, int initialY) {
@@ -33,6 +33,7 @@ public class Snake {
     public ArrayList<SnakeSegment> getSegments() {
         return segments;
     }
+
     public SnakeSegment getSegment(int idx) {
         return segments.get(idx);
     }

@@ -21,7 +21,7 @@ public class MainPanel extends JPanel implements Runnable {
     private final static int HEIGHT = 800;
     private Snake snake;
     private Thread thread;
-    private boolean running = false;
+    private boolean isRunning = false;
 
     Point p = MouseInfo.getPointerInfo().getLocation();
 
@@ -81,7 +81,7 @@ public class MainPanel extends JPanel implements Runnable {
     }
 
     public void start() {
-        running = true;
+        isRunning = true;
         thread = new Thread(this, "Main thread");
         thread.start();
     }
@@ -107,11 +107,11 @@ public class MainPanel extends JPanel implements Runnable {
 
         if (snake.getHeadPosition().x >= WIDTH || snake.getHeadPosition().x < 0 || snake.getHeadPosition().y >= HEIGHT
                 || snake.getHeadPosition().y < 0) {
-            running = false;
+            isRunning = false;
         } else {
             for (int i = 0; i < snake.getSize() - 1; i++) {
                 if (snake.getHeadPosition().x == snake.getSegment(i).getX() && snake.getHeadPosition().y == snake.getSegment(i).getY()) {
-                    running = false;
+                    isRunning = false;
                 }
             }
         }
@@ -119,13 +119,19 @@ public class MainPanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        while (running) {
+        int i = 0;
+        while (isRunning) {
             move();
             repaint();
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+            i++;
+            if (i == 20) {
+                System.out.println("Is Running...");
+                i = 0;
             }
         }
     }

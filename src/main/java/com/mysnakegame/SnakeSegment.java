@@ -8,7 +8,7 @@ public class SnakeSegment {
     public final static int size = 10;
     private int posX, posY;
     private Color color;
-    
+
     public SnakeSegment(int posX, int posY, Color color) {
         this.posX = posX;
         this.posY = posY;
@@ -39,7 +39,7 @@ public class SnakeSegment {
     public void setY(int y) {
         this.posY = y;
     }
-    
+
     public void setColor(Color color) {
         this.color = color;
     }

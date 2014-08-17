@@ -49,7 +49,8 @@ public class MainWindow extends JFrame {
         helpMenu = new JMenu("Help");
         helpMenu.setMnemonic(KeyEvent.VK_H);
 
-        newGameMenuItem = new JMenuItem("New game", Utils.createImageIcon("/play_icon_16x16.png"));
+        NewGameAction newGameAction = new NewGameAction("New game", Utils.createImageIcon("/play_icon_16x16.png"), "Start new game", KeyEvent.VK_N);
+        newGameMenuItem = new JMenuItem(newGameAction);
 
         ExitAction exitAction = new ExitAction("Exit", Utils.createImageIcon("/exit_icon_16x16.png"), "Exit the application", KeyEvent.VK_E);
         exitMenuItem = new JMenuItem(exitAction);
@@ -131,5 +132,25 @@ public class MainWindow extends JFrame {
                     p.y + frame.getHeight() / 2 - aboutDialog.getHeight() / 2);
             aboutDialog.setVisible(true);
         }
+    }
+
+    public class NewGameAction extends AbstractAction {
+
+        private static final long serialVersionUID = 4592465389199267807L;
+                
+        public NewGameAction(String name, ImageIcon icon, String shortDescription, Integer mnemonic) {
+            super(name, icon);
+            putValue(SHORT_DESCRIPTION, shortDescription);
+            putValue(MNEMONIC_KEY, mnemonic);            
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            System.out.println("New game started...");
+            //MainPanel.startNewGame();
+            //panel.snake = new Snake(WIDTH / 2, HEIGHT / 2);
+            //panel.start();
+        }
+        
     }
 }
