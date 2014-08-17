@@ -16,6 +16,7 @@ import com.mysnakegame.Snake.MovementDirection;
 
 public class MainPanel extends JPanel implements Runnable {
 
+    private static final long serialVersionUID = 6021045202646433511L;
     private final static int WIDTH = 800;
     private final static int HEIGHT = 800;
     private Snake snake;

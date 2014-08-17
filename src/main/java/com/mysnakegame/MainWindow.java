@@ -23,7 +23,8 @@ import org.apache.commons.io.IOUtils;
 import com.mysnakegame.utils.Utils;
 
 public class MainWindow extends JFrame {
-
+    
+    private static final long serialVersionUID = 8911063216016530341L;
     private JMenuBar menuBar;
     private JMenu fileMenu, helpMenu;
     private JMenuItem newGameMenuItem, aboutMenuItem, exitMenuItem;
@@ -77,6 +78,8 @@ public class MainWindow extends JFrame {
     }
 
     public class ExitAction extends AbstractAction {
+        
+        private static final long serialVersionUID = 3039059743053449508L;
 
         public ExitAction(String name, ImageIcon icon, String shortDescription, Integer mnemonic) {
             super(name, icon);
@@ -91,7 +94,8 @@ public class MainWindow extends JFrame {
     }
 
     public class ShowDialogAction extends AbstractAction {
-
+        
+        private static final long serialVersionUID = -7666919232280854843L;
         private JFrame frame;
 
         public ShowDialogAction(String name, ImageIcon icon, JFrame frame, String shortDescription, Integer mnemonic) {
