@@ -17,12 +17,8 @@ public class Snake {
     public Snake(int initialX, int initialY) {
         md = MovementDirection.RIGHT;
         segments = new ArrayList<SnakeSegment>();
-        for (int i = 0; i < initialLength; i++) {
-            if (getSize() == 0) {
-                addSegment(initialX, initialY);
-            } else {
-                addSegment(getHeadPosition().x + SnakeSegment.size, getHeadPosition().y);
-            }
+        for (int i = initialLength; i > 0; i--) {
+            addSegment(initialX - i * SnakeSegment.size, initialY);
         }
     }
 
@@ -46,15 +42,16 @@ public class Snake {
                 segments.get(i).setColor(Color.GREEN);
             }
         }
-        segments.add(new SnakeSegment(x, y, Color.GREEN));
+        segments.add(0, new SnakeSegment(x, y, Color.GREEN));
+        segments.get(0).setColor(Color.BLACK);
     }
 
     public Point getHeadPosition() {
-        return new Point(segments.get(getSize() - 1).getX(), segments.get(getSize() - 1).getY());
+        return new Point(segments.get(0).getX(), segments.get(0).getY());
     }
 
     public void removeLast() {
-        segments.remove(0);
+        segments.remove(getSize() - 1);
     }
 
     public MovementDirection getMovementDirection() {

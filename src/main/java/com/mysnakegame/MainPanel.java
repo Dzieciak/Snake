@@ -46,6 +46,8 @@ public class MainPanel extends JPanel implements Runnable {
 
     public void move() {
 
+        snake.removeLast();
+
         switch (snake.getMovementDirection()) {
             case UP:
                 snake.addSegment(snake.getHeadPosition().x, snake.getHeadPosition().y - SnakeSegment.size);
@@ -61,13 +63,11 @@ public class MainPanel extends JPanel implements Runnable {
                 break;
         }
 
-        snake.removeLast();
-
         if (snake.getHeadPosition().x >= WIDTH || snake.getHeadPosition().x < 0 || snake.getHeadPosition().y >= HEIGHT
                 || snake.getHeadPosition().y < 0) {
             isRunning = false;
         } else {
-            for (int i = 0; i < snake.getSize() - 1; i++) {
+            for (int i = 1; i < snake.getSize(); i++) {
                 if (snake.getHeadPosition().x == snake.getSegment(i).getX() && snake.getHeadPosition().y == snake.getSegment(i).getY()) {
                     isRunning = false;
                 }
@@ -81,9 +81,8 @@ public class MainPanel extends JPanel implements Runnable {
         int i = 0;
         while (isRunning) {
             move();
-            repaint();
             try {
-                Thread.sleep(50);
+                Thread.sleep(75);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

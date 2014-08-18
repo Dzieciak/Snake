@@ -25,6 +25,7 @@ import com.mysnakegame.utils.Utils;
 public class MainWindow extends JFrame {
 
     private static final long serialVersionUID = 8911063216016530341L;
+    public static boolean gameStarted = false;
     private JMenuBar menuBar;
     private JMenu fileMenu, helpMenu;
     private JMenuItem newGameMenuItem, aboutMenuItem, exitMenuItem;
@@ -148,6 +149,7 @@ public class MainWindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             System.out.println("New game started...");
+            gameStarted = true;
         }
 
     }
