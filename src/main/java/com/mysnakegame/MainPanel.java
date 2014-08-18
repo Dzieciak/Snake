@@ -81,6 +81,7 @@ public class MainPanel extends JPanel implements Runnable {
         int i = 0;
         while (isRunning) {
             move();
+            repaint();
             try {
                 Thread.sleep(75);
             } catch (InterruptedException e) {
