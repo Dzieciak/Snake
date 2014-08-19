@@ -1,25 +1,18 @@
 package com.mysnakegame;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 
-import org.apache.commons.io.IOUtils;
-
+import com.mysnakegame.dialogs.AboutDialog;
 import com.mysnakegame.utils.Utils;
 
 public class MainWindow extends JFrame {
@@ -29,6 +22,7 @@ public class MainWindow extends JFrame {
     private JMenuBar menuBar;
     private JMenu fileMenu, helpMenu;
     private JMenuItem newGameMenuItem, aboutMenuItem, exitMenuItem;
+    private AboutDialog aboutDialog;
 
     public MainWindow() {
         setTitle("Wonrz");
@@ -39,7 +33,7 @@ public class MainWindow extends JFrame {
         initApplication();
     }
 
-    private void initApplication() {
+    private final void initApplication() {
         setLayout(new GridLayout(1, 1, 0, 0));
 
         menuBar = new JMenuBar();
@@ -110,29 +104,7 @@ public class MainWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            JDialog aboutDialog = new JDialog(frame, "About...", true);
-            aboutDialog.setLocationRelativeTo(frame);
-            aboutDialog.setLayout(new FlowLayout(FlowLayout.LEFT));
-            JLabel labelIcon = new JLabel(Utils.createImageIcon("/snake_icon_128x128.png"));
-            labelIcon.setOpaque(true);
-            labelIcon.setBackground(Color.RED);
-            aboutDialog.add(labelIcon);
-            try {
-                String str = IOUtils.toString(this.getClass().getResourceAsStream("/About.html"), "UTF-8");
-                JLabel labelText = new JLabel(str);
-                labelText.setOpaque(true);
-                labelText.setBackground(Color.CYAN);
-                aboutDialog.add(labelText);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            aboutDialog.setIconImage(Utils.createImageIcon("/snake_icon_16x16.png").getImage());
-            aboutDialog.setResizable(false);
-            Point p = frame.getLocation();
-            aboutDialog.setSize(400, 170);
-            aboutDialog.setLocation(p.x + frame.getWidth() / 2 - aboutDialog.getWidth() / 2,
-                    p.y + frame.getHeight() / 2 - aboutDialog.getHeight() / 2);
-            aboutDialog.setVisible(true);
+            aboutDialog = new AboutDialog(frame);
         }
     }
 
