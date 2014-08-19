@@ -46,7 +46,7 @@ public class AboutDialog extends JDialog {
         setTitle(title);
         setLocationRelativeTo(parent);
         setLayout(new FlowLayout(FlowLayout.LEFT));
-        setIconImage(Utils.createImageIcon("/snake_icon_16x16.png").getImage());
+        setIconImage(Utils.createImageIcon("/about_icon_16x16.png").getImage());
         setResizable(false);
         setSize(400, 170);
         setLocation(parentLocation.x + parent.getWidth() / 2 - getWidth() / 2, parentLocation.y + parent.getHeight() / 2 - getHeight() / 2);
