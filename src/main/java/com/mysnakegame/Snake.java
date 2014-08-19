@@ -14,11 +14,11 @@ public class Snake {
     private ArrayList<SnakeSegment> segments;
     private MovementDirection md;
 
-    public Snake(int initialX, int initialY) {
+    public Snake() {
         md = MovementDirection.RIGHT;
         segments = new ArrayList<SnakeSegment>();
         for (int i = initialLength; i > 0; i--) {
-            addSegment(initialX - i * SnakeSegment.size, initialY);
+            addSegment(MainPanel.WIDTH / 2 - i * SnakeSegment.size, MainPanel.HEIGHT / 2);
         }
     }
 
@@ -65,12 +65,8 @@ public class Snake {
     public void reset() {
         segments.clear();
         md = MovementDirection.RIGHT;
-        for (int i = 0; i < initialLength; i++) {
-            if (getSize() == 0) {
-                addSegment(MainPanel.WIDTH / 2, MainPanel.HEIGHT / 2);
-            } else {
-                addSegment(getHeadPosition().x + SnakeSegment.size, getHeadPosition().y);
-            }
+        for (int i = initialLength; i > 0; i--) {
+            addSegment(MainPanel.WIDTH / 2 - i * SnakeSegment.size, MainPanel.HEIGHT / 2);
         }
     }
 

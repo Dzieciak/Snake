@@ -18,11 +18,11 @@ import com.mysnakegame.utils.Utils;
 public class MainWindow extends JFrame {
 
     private static final long serialVersionUID = 8911063216016530341L;
-    public static boolean gameStarted = false;
     private JMenuBar menuBar;
     private JMenu fileMenu, helpMenu;
     private JMenuItem newGameMenuItem, aboutMenuItem, exitMenuItem;
     private AboutDialog aboutDialog;
+    private MainPanel mainPanel;
 
     public MainWindow() {
         setTitle("Wonrz");
@@ -64,8 +64,8 @@ public class MainWindow extends JFrame {
 
         setJMenuBar(menuBar);
 
-        MainPanel p = new MainPanel();
-        add(p);
+        mainPanel = new MainPanel();
+        add(mainPanel);
         pack();
 
         UIManager.put("swing.boldMetal", Boolean.FALSE);
@@ -120,8 +120,7 @@ public class MainWindow extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            System.out.println("New game started...");
-            gameStarted = true;
+            mainPanel.start();
         }
 
     }

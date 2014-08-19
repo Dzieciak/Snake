@@ -17,18 +17,18 @@ public class MainPanel extends JPanel implements Runnable {
     public static final int HEIGHT = 800;
     private Snake snake;
     private Thread thread;
-    private boolean isRunning = false;
+    private boolean running = false;
     private boolean isDirChgAllowed = false;
+    private boolean gameStarted = false;
 
     public MainPanel() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.WHITE);
-        this.snake = new Snake(WIDTH / 2, HEIGHT / 2);
-        start();
+        snake = new Snake();
         KeyHandler kh = new KeyHandler();
         addKeyListener(kh);
         setFocusable(true);
-
+        thread = new Thread(this, "Main thread");
     }
 
     @Override
@@ -40,9 +40,18 @@ public class MainPanel extends JPanel implements Runnable {
     }
 
     public void start() {
-        isRunning = true;
+        gameStarted = false;
+        running = false;
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        running = true;
         thread = new Thread(this, "Main thread");
+        snake.reset();
         thread.start();
+        gameStarted = true;
     }
 
     public void move() {
@@ -66,11 +75,13 @@ public class MainPanel extends JPanel implements Runnable {
 
         if (snake.getHeadPosition().x >= WIDTH || snake.getHeadPosition().x < 0 || snake.getHeadPosition().y >= HEIGHT
                 || snake.getHeadPosition().y < 0) {
-            isRunning = false;
+            running = false;
+            gameStarted = false;
         } else {
             for (int i = 1; i < snake.getSize(); i++) {
                 if (snake.getHeadPosition().x == snake.getSegment(i).getX() && snake.getHeadPosition().y == snake.getSegment(i).getY()) {
-                    isRunning = false;
+                    running = false;
+                    gameStarted = false;
                     snake.getSegment(i).setColor(Color.BLACK);
                 }
             }
@@ -80,8 +91,7 @@ public class MainPanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        int i = 0;
-        while (isRunning) {
+        while (running) {
             isDirChgAllowed = true;
             move();
             repaint();
@@ -89,11 +99,6 @@ public class MainPanel extends JPanel implements Runnable {
                 Thread.sleep(75);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
-            i++;
-            if (i == 20) {
-                System.out.println("Is Running... " + thread.isAlive());
-                i = 0;
             }
         }
     }
@@ -106,27 +111,27 @@ public class MainPanel extends JPanel implements Runnable {
             int key = e.getKeyCode();
 
             if (isDirChgAllowed) {
-                if (key == KeyEvent.VK_UP && !(snake.getMovementDirection().equals(Snake.MovementDirection.DOWN)) && isRunning) {
+                if (key == KeyEvent.VK_UP && !(snake.getMovementDirection().equals(Snake.MovementDirection.DOWN)) && running) {
                     snake.setMovementDirection(MovementDirection.UP);
-                } else if (key == KeyEvent.VK_RIGHT && !(snake.getMovementDirection().equals(Snake.MovementDirection.LEFT)) && isRunning) {
+                } else if (key == KeyEvent.VK_RIGHT && !(snake.getMovementDirection().equals(Snake.MovementDirection.LEFT)) && running) {
                     snake.setMovementDirection(MovementDirection.RIGHT);
-                } else if (key == KeyEvent.VK_DOWN && !(snake.getMovementDirection().equals(Snake.MovementDirection.UP)) && isRunning) {
+                } else if (key == KeyEvent.VK_DOWN && !(snake.getMovementDirection().equals(Snake.MovementDirection.UP)) && running) {
                     snake.setMovementDirection(MovementDirection.DOWN);
-                } else if (key == KeyEvent.VK_LEFT && !(snake.getMovementDirection().equals(Snake.MovementDirection.RIGHT)) && isRunning) {
+                } else if (key == KeyEvent.VK_LEFT && !(snake.getMovementDirection().equals(Snake.MovementDirection.RIGHT)) && running) {
                     snake.setMovementDirection(MovementDirection.LEFT);
                 }
                 isDirChgAllowed = false;
             }
 
-            if (key == KeyEvent.VK_PAUSE && thread.isAlive()) {
-                isRunning = false;
+            if (key == KeyEvent.VK_PAUSE && thread.isAlive() && gameStarted) {
+                running = false;
                 try {
                     thread.join();
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
-            } else if (key == KeyEvent.VK_PAUSE && !thread.isAlive()) {
-                isRunning = true;
+            } else if (key == KeyEvent.VK_PAUSE && !thread.isAlive() && gameStarted) {
+                running = true;
                 thread = new Thread(MainPanel.this, "Main thread");
                 thread.start();
             }
