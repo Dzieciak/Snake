@@ -1,6 +1,5 @@
 package com.mysnakegame;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.util.ArrayList;
 
@@ -35,15 +34,17 @@ public class Snake {
     }
 
     public void addSegment(int x, int y) {
+
         for (int i = 0; i < getSize(); i++) {
-            if (segments.get(i).getColor().equals(Color.GREEN)) {
-                segments.get(i).setColor(Color.YELLOW);
+            if (segments.get(i).getFill().equals(SnakeSegment.IMAGE1)) {
+                segments.get(i).setFill(SnakeSegment.IMAGE2);
             } else {
-                segments.get(i).setColor(Color.GREEN);
+                segments.get(i).setFill(SnakeSegment.IMAGE1);
             }
         }
-        segments.add(0, new SnakeSegment(x, y, Color.GREEN));
-        segments.get(0).setColor(Color.BLACK);
+
+        segments.add(0, new SnakeSegment(x, y));
+        // segments.get(0).setColor(Color.BLACK);
     }
 
     public Point getHeadPosition() {

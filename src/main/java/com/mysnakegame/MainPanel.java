@@ -82,7 +82,7 @@ public class MainPanel extends JPanel implements Runnable {
                 if (snake.getHeadPosition().x == snake.getSegment(i).getX() && snake.getHeadPosition().y == snake.getSegment(i).getY()) {
                     running = false;
                     gameStarted = false;
-                    snake.getSegment(i).setColor(Color.BLACK);
+                    // snake.getSegment(i).setColor(Color.BLACK);
                 }
             }
         }
