@@ -1,4 +1,4 @@
-package com.project.maven.first;
+package com.mysnakegame.test;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
