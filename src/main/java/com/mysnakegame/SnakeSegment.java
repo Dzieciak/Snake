@@ -2,6 +2,7 @@ package com.mysnakegame;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.TexturePaint;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -10,10 +11,10 @@ import com.mysnakegame.utils.Utils;
 
 public class SnakeSegment {
 
-    public static final BufferedImage IMAGE1 = Utils.createBufferedImage("/snake_skin_1_10x10.png");
-    public static final BufferedImage IMAGE2 = Utils.createBufferedImage("/snake_skin_2_10x10.png");
+    public static final BufferedImage IMAGE1 = Utils.createBufferedImage("/skin_ver1_1_16x16.png");
+    public static final BufferedImage IMAGE2 = Utils.createBufferedImage("/skin_ver1_2_16x16.png");
 
-    public final static int size = 10;
+    public final static int SEGMENT_SIZE = 16;
     private int posX, posY;
     // private Color color;
 
@@ -28,12 +29,11 @@ public class SnakeSegment {
 
     public void draw(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        Rectangle2D r = new Rectangle2D.Double(posX, posY, size, size);
+        Rectangle2D r = new Rectangle2D.Double(posX, posY, SEGMENT_SIZE, SEGMENT_SIZE);
         // Rectangle2D tr = new Rectangle2D.Double(posX, posY, size, size);
         TexturePaint tp = new TexturePaint(image, r);
         g2.setPaint(tp);
         g2.fill(r);
-        
         // g.setColor(color);
         // g.fillRect(posX, posY, size, size);
     }
@@ -44,6 +44,10 @@ public class SnakeSegment {
 
     public int getY() {
         return posY;
+    }
+
+    public Point getLocation() {
+        return new Point(posX, posY);
     }
 
     /*

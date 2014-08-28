@@ -9,13 +9,17 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 
 import com.mysnakegame.Snake.MovementDirection;
+import com.mysnakegame.fruits.Fruit;
+import com.mysnakegame.fruits.Fruits;
 
 public class MainPanel extends JPanel implements Runnable {
 
     private static final long serialVersionUID = 6021045202646433511L;
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 800;
+    private static final int REFRESH_TIME = 75;
+    public static final int WIDTH = 960;
+    public static final int HEIGHT = 960;
     private Snake snake;
+    private Fruit fruit;
     private Thread thread;
     private boolean running = false;
     private boolean isDirChgAllowed = false;
@@ -25,6 +29,7 @@ public class MainPanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.WHITE);
         snake = new Snake();
+        fruit = new Fruit(Fruits.APPLE, snake);
         KeyHandler kh = new KeyHandler();
         addKeyListener(kh);
         setFocusable(true);
@@ -37,6 +42,7 @@ public class MainPanel extends JPanel implements Runnable {
         for (int i = 0; i < snake.getSize(); i++) {
             snake.getSegments().get(i).draw(g);
         }
+        fruit.draw(g);
     }
 
     public void start() {
@@ -56,20 +62,18 @@ public class MainPanel extends JPanel implements Runnable {
 
     public void move() {
 
-        snake.removeLast();
-
         switch (snake.getMovementDirection()) {
             case UP:
-                snake.addSegment(snake.getHeadPosition().x, snake.getHeadPosition().y - SnakeSegment.size);
+                snake.addSegment(snake.getHeadPosition().x, snake.getHeadPosition().y - SnakeSegment.SEGMENT_SIZE);
                 break;
             case RIGHT:
-                snake.addSegment(snake.getHeadPosition().x + SnakeSegment.size, snake.getHeadPosition().y);
+                snake.addSegment(snake.getHeadPosition().x + SnakeSegment.SEGMENT_SIZE, snake.getHeadPosition().y);
                 break;
             case DOWN:
-                snake.addSegment(snake.getHeadPosition().x, snake.getHeadPosition().y + SnakeSegment.size);
+                snake.addSegment(snake.getHeadPosition().x, snake.getHeadPosition().y + SnakeSegment.SEGMENT_SIZE);
                 break;
             case LEFT:
-                snake.addSegment(snake.getHeadPosition().x - SnakeSegment.size, snake.getHeadPosition().y);
+                snake.addSegment(snake.getHeadPosition().x - SnakeSegment.SEGMENT_SIZE, snake.getHeadPosition().y);
                 break;
         }
 
@@ -87,6 +91,12 @@ public class MainPanel extends JPanel implements Runnable {
             }
         }
 
+        if (fruit.getLocation().equals(snake.getHeadPosition())) {
+            fruit.setNewLocation();
+        } else {
+            snake.removeLast();
+        }
+
     }
 
     @Override
@@ -96,7 +106,7 @@ public class MainPanel extends JPanel implements Runnable {
             move();
             repaint();
             try {
-                Thread.sleep(75);
+                Thread.sleep(REFRESH_TIME);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
