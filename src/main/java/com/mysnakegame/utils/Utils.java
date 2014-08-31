@@ -9,11 +9,15 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.mysnakegame.MainPanel;
 import com.mysnakegame.SnakeSegment;
 
 public class Utils {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Utils.class);
     public static Random rand = new Random();
 
     public static ImageIcon createImageIcon(String path) {
@@ -44,10 +48,9 @@ public class Utils {
     }
 
     public static Point generateRandomLocation() {
-        int x, y;
-        x = rand.nextInt(MainPanel.WIDTH / SnakeSegment.SEGMENT_SIZE) * SnakeSegment.SEGMENT_SIZE;
-        y = rand.nextInt(MainPanel.HEIGHT / SnakeSegment.SEGMENT_SIZE) * SnakeSegment.SEGMENT_SIZE;
-        System.out.println("Random point: (" + x + ", " + y + ")");
+        int x = rand.nextInt(MainPanel.WIDTH / SnakeSegment.SEGMENT_SIZE) * SnakeSegment.SEGMENT_SIZE;
+        int y = rand.nextInt(MainPanel.HEIGHT / SnakeSegment.SEGMENT_SIZE) * SnakeSegment.SEGMENT_SIZE;
+        LOGGER.info("Random point: ({}, {})", x, y);
         return new Point(x, y);
     }
 }

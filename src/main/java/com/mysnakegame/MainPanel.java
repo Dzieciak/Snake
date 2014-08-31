@@ -24,6 +24,7 @@ public class MainPanel extends JPanel implements Runnable {
     private boolean running = false;
     private boolean isDirChgAllowed = false;
     private boolean gameStarted = false;
+    private int fruitCounter = 0;
 
     public MainPanel() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -138,7 +139,7 @@ public class MainPanel extends JPanel implements Runnable {
                 try {
                     thread.join();
                 } catch (InterruptedException e1) {
-                    e1.printStackTrace();
+                    Thread.currentThread().interrupt();
                 }
             } else if (key == KeyEvent.VK_PAUSE && !thread.isAlive() && gameStarted) {
                 running = true;
@@ -149,12 +150,10 @@ public class MainPanel extends JPanel implements Runnable {
 
         @Override
         public void keyReleased(KeyEvent e) {
-
         }
 
         @Override
         public void keyTyped(KeyEvent e) {
-
         }
 
     }

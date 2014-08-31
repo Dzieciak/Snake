@@ -8,12 +8,17 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JComponent;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.mysnakegame.Snake;
 import com.mysnakegame.SnakeSegment;
 import com.mysnakegame.utils.Utils;
 
 public class Fruit extends JComponent {
 
+    private static final long serialVersionUID = 3854302124338512392L;
+    private static final Logger LOGGER = LoggerFactory.getLogger(Fruit.class);
     private int posX, posY;
     private Fruits fruit;
     private Snake snake;
@@ -38,7 +43,7 @@ public class Fruit extends JComponent {
         while (!validPosition) {
             point = Utils.generateRandomLocation();
             validPosition = validateLocation(point, snake);
-            System.out.println("Position: " + validPosition);
+            LOGGER.info("Valid position: {}", validPosition);
         }
         posX = point.x;
         posY = point.y;
