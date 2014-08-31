@@ -53,6 +53,14 @@ public class Fruit extends JComponent {
         return new Point(posX, posY);
     }
 
+    public void setFruit(Fruits fruit) {
+        this.fruit = fruit;
+    }
+
+    public Fruits getFruit() {
+        return fruit;
+    }
+
     public static boolean validateLocation(Point point, Snake snake) {
         for (SnakeSegment segment : snake.getSegments()) {
             if (segment.getLocation().equals(point)) {

@@ -8,6 +8,9 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.mysnakegame.Snake.MovementDirection;
 import com.mysnakegame.fruits.Fruit;
 import com.mysnakegame.fruits.Fruits;
@@ -18,19 +21,21 @@ public class MainPanel extends JPanel implements Runnable {
     private static final int REFRESH_TIME = 75;
     public static final int WIDTH = 960;
     public static final int HEIGHT = 960;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainPanel.class);
     private Snake snake;
     private Fruit fruit;
     private Thread thread;
     private boolean running = false;
     private boolean isDirChgAllowed = false;
     private boolean gameStarted = false;
-    private int fruitCounter = 0;
+    private int fruitCounter = 1;
+    private int pointCounter = 0;
 
     public MainPanel() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.WHITE);
         snake = new Snake();
-        fruit = new Fruit(Fruits.APPLE, snake);
+        fruit = new Fruit(Fruits.STRAWBERRY, snake);
         KeyHandler kh = new KeyHandler();
         addKeyListener(kh);
         setFocusable(true);
@@ -54,6 +59,10 @@ public class MainPanel extends JPanel implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        pointCounter = 0;
+        fruitCounter = 1;
+        fruit.setNewLocation();
+        fruit.setFruit(Fruits.STRAWBERRY);
         running = true;
         thread = new Thread(this, "Main thread");
         snake.reset();
@@ -93,7 +102,28 @@ public class MainPanel extends JPanel implements Runnable {
         }
 
         if (fruit.getLocation().equals(snake.getHeadPosition())) {
+            pointCounter += fruit.getFruit().getPointsValue();
+            LOGGER.info("SNAKE HAS EATEN {} AND HAS {} POINTS", fruit.getFruit().toString(), pointCounter);
+            fruitCounter++;
             fruit.setNewLocation();
+            switch (fruitCounter) {
+                case 3:
+                    fruit.setFruit(Fruits.PEAR);
+                    break;
+                case 5:
+                    fruit.setFruit(Fruits.BANANA);
+                    break;
+                case 7:
+                    fruit.setFruit(Fruits.ORANGE);
+                    break;
+                case 10:
+                    fruit.setFruit(Fruits.APPLE);
+                    fruitCounter = 1;
+                    break;
+                default:
+                    fruit.setFruit(Fruits.STRAWBERRY);
+                    break;
+            }
         } else {
             snake.removeLast();
         }

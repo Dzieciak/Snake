@@ -18,6 +18,10 @@ public enum Fruits {
     }
 
     public BufferedImage getImage() {
-        return this.image;
+        return image;
+    }
+
+    public int getPointsValue() {
+        return pointValue;
     }
 }
